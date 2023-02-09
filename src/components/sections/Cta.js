@@ -1,8 +1,10 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { SectionProps } from '../../utils/SectionProps';
 import Input from '../elements/Input';
+import axios from 'axios';
 
 const propTypes = {
   ...SectionProps.types,
@@ -25,6 +27,42 @@ const Cta = ({
   split,
   ...props
 }) => {
+  
+  const refreshDelay = 300000;
+  const [GEXData, setGEXData] = useState();
+
+  async function getGEXData(){
+    const options = {
+      method: 'GET',
+      url: 'https://min-api.cryptocompare.com/data/v2/histoday?fsym=ETH&tsym=USD&limit=100',
+      headers: {
+        'authorization': 'Apikey 5144d8cdffd91d36d321f9cd28f5679f7372cb1615b4d8ac8a7b7dbf0525f322',
+      }
+    };
+    
+
+    await axios.request(options).then(function (response) {
+      console.log(response.data.Data.Data);
+      setGEXData(response.data.Data.Data);
+
+    }).catch(function (error) {
+      console.error(error);
+    });
+  }
+
+
+
+  useEffect(() => {
+    getGEXData();
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getGEXData();
+    }, refreshDelay);
+  
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, [])
 
   const outerClasses = classNames(
     'cta section center-content-mobile reveal-from-bottom',
