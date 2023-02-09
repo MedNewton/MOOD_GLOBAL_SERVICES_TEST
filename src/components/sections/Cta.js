@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { SectionProps } from '../../utils/SectionProps';
-import Input from '../elements/Input';
 import axios from 'axios';
 
 const propTypes = {
@@ -30,6 +29,27 @@ const Cta = ({
   
   const refreshDelay = 300000;
   const [GEXData, setGEXData] = useState();
+  const [currentGEXData, setCurrentGEXData] = useState({ currentPrice: 0, currentMktCap: 0, volume24Hrs: 0, open24Hrs: 0, low24Hrs: 0, high24Hrs: 0, changePCT24Hrs: 0 });
+
+  async function getCurrentGEXData(){
+    const options = {
+      method: 'GET',
+      url: 'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD',
+      headers: {
+        'authorization': 'Apikey 5144d8cdffd91d36d321f9cd28f5679f7372cb1615b4d8ac8a7b7dbf0525f322',
+      }
+    };
+
+    await axios.request(options).then(function (response) {
+      console.log(response.data.RAW.ETH.USD);
+      let responseRawData = response.data.RAW.ETH.USD;
+      setCurrentGEXData({ currentPrice: responseRawData.PRICE, currentMktCap: responseRawData.MKTCAP, volume24Hrs: responseRawData.VOLUME24HOUR, open24Hrs: responseRawData.OPEN24HOUR, low24Hrs: responseRawData.LOW24HOUR, high24Hrs: responseRawData.HIGH24HOUR, changePCT24Hrs: responseRawData.CHANGEPCT24HOUR })
+      
+    }).catch(function (error) {
+      console.error(error);
+    });
+  }
+
 
   async function getGEXData(){
     const options = {
@@ -42,7 +62,7 @@ const Cta = ({
     
 
     await axios.request(options).then(function (response) {
-      console.log(response.data.Data.Data);
+      //console.log(response.data);
       setGEXData(response.data.Data.Data);
 
     }).catch(function (error) {
@@ -53,11 +73,13 @@ const Cta = ({
 
 
   useEffect(() => {
+    getCurrentGEXData();
     getGEXData();
   }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
+      getCurrentGEXData();
       getGEXData();
     }, refreshDelay);
   
@@ -89,17 +111,12 @@ const Cta = ({
         <div
           className={innerClasses}
         >
-          <div className="cta-slogan">
-            <h3 className="m-0">
-              For previewing layouts and visual?
-              </h3>
-          </div>
-          <div className="cta-action">
-            <Input id="newsletter" type="email" label="Subscribe" labelHidden hasIcon="right" placeholder="Your best email">
-              <svg width="16" height="12" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 5H1c-.6 0-1 .4-1 1s.4 1 1 1h8v5l7-6-7-6v5z" fill="#376DF9" />
-              </svg>
-            </Input>
+          <div className='generalData'>
+            <div className='generalDataColumn'><h5 className='currSymbols'>ETH/USD</h5></div>
+            <div className='generalDataColumn'>
+              <div ></div>
+            </div> 
+            
           </div>
         </div>
       </div>
