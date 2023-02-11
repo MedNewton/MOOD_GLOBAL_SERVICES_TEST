@@ -64,7 +64,12 @@
 }
 
 .text-color-primary {
-	color: color(primary);
+	
+	background: #11998e !important;
+    background: -webkit-linear-gradient(to bottom, #38ef7d5f, #11998e5f) !important;
+    background: linear-gradient(to bottom, #38ef7d5f, #11998e5f) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 .text-color-secondary {

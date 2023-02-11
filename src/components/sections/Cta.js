@@ -47,7 +47,7 @@ const Cta = ({
     };
 
     await axios.request(options).then(function (response) {
-      console.log(response.data.RAW.ETH.USD);
+      //console.log(response.data.RAW.ETH.USD);
       let responseRawData = response.data.RAW.ETH.USD;
       setCurrentGEXData({ currentPrice: responseRawData.PRICE, currentMktCap: responseRawData.MKTCAP, volume24Hrs: responseRawData.VOLUME24HOUR, open24Hrs: responseRawData.OPEN24HOUR, low24Hrs: responseRawData.LOW24HOUR, high24Hrs: responseRawData.HIGH24HOUR, changePCT24Hrs: responseRawData.CHANGEPCT24HOUR })
       
