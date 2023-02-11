@@ -33,6 +33,93 @@
     flex-direction: row;
 }
 
+
+.generalDataBar{
+    padding: 2%;
+    width: 90vw;
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #38ef7d5f, #11998e5f);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #38ef7d5f, #11998e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+
+}
+
+
+
+.generalDataTitle{
+    width: fit-content;
+    border-right: solid 1px rgba(255, 255, 255, 0.616);
+}
+
+.generalDataColumn{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex-basis: fit-content;
+    align-content: center;
+    align-items: normal;
+    justify-content: center;
+}
+
+.generalDataColumnLabel{
+    color: rgb(184, 184, 184);
+    font-size:medium;
+    height: fit-content !important;
+    margin-bottom: 0px;
+}
+
+.generalDataColumnContent{
+    margin-top: 5%;
+    margin-bottom: 0px;
+    color: rgb(245, 245, 245);
+    font-size: large;
+    font-weight: 500;
+}
+
+.wideDataColumn{
+    width: fit-content !important;
+}
+
+
+.chart{
+    width: 90vw;
+    height: 90vh;
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #38ef7d5f, #11998e5f);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #38ef7d5f, #11998e5f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+    margin-top: 2%;
+    padding: 10px;
+}
+
+.nav-link{
+    font-size: medium;
+    color: #fff;
+    border: none !important;
+}
+
+.nav-link:hover{
+    color: rgb(192, 192, 192);
+    border-color: transparent !important;
+}
+
+
+
+.nav-link:not(:focus){
+    border-color: transparent !important;
+}
+
+.nav-link.active{
+    background-color: transparent !important;
+    border-top: solid 3px #fff !important;
+    border-left: solid 0px #fff !important;
+    border-right: solid 0px #fff !important;
+    border-bottom: solid 0px #fff !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    color: #fff !important;
+}
+
 @include media( '>medium' ) {
 
 .cta {

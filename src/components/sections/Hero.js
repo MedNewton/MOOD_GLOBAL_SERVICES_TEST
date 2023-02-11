@@ -54,7 +54,7 @@ const Hero = ({
               <p className="m-0 mb-32 reveal-from-bottom" data-reveal-delay="400">
                 Just a simple app made for the 3rd recruitment phase of MOOD GLOBAL SERVICES (and for fun ...)
                 </p>
-              <div className="reveal-from-bottom" data-reveal-delay="600">
+              <div className="reveal-from-bottom githubBtn" data-reveal-delay="600">
                 <ButtonGroup>
                   
                   <Button tag="a" color="dark" wideMobile href="https://github.com/MedNewton/MOOD_GLOBAL_SERVICES_TEST/tree/master">
