@@ -6,7 +6,6 @@ import { max } from "d3-array";
 
 
 const Tooltip = ({ x, y, data }) => {
-  console.log(data.x);
   return (
     <div style={{ position: "absolute", left: x, top: y }}>
         <div style={{ backgroundColor: "#fff", color: "#030303", padding: "10px", fontSize: "15px", border: "solid 1px #030303", borderRadius: "10px" }}>
@@ -47,7 +46,6 @@ const LineChart = ({ data }) => {
     const [tooltip, setTooltip] = useState(null);
 
     const handleMouseOver = (e, d) => {
-        console.log(d)
         setTooltip({
             x: e.clientX - 50,
             y: e.clientY - 50,
@@ -142,7 +140,7 @@ const LineChart = ({ data }) => {
               fontSize: "12px",
             }}
           >
-            ETH / USD
+            Volume in M$
           </div>
         </div>
       </div>);

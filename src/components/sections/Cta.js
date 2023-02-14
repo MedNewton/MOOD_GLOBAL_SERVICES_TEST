@@ -42,6 +42,7 @@ const Cta = ({
   const [GEXData, setGEXData] = useState();
   const [currentGEXData, setCurrentGEXData] = useState({ currentPrice: 0, currentMktCap: 0, volume24Hrs: 0, open24Hrs: 0, low24Hrs: 0, high24Hrs: 0, changePCT24Hrs: 0 });
   const [volumeData, setVolumeData] = useState([]);
+  
 
 
 
@@ -88,7 +89,6 @@ const Cta = ({
         let timeStamp = element.time;
         let rawDate = new Date(timeStamp * 1000);
         let elementDate = rawDate.getDate() + '/0' + (rawDate.getMonth() + 1);
-        console.log(elementDate)
         // Rounding the volume
         let rawVolume = element.volume;
         let elementVolume = Math.round(rawVolume / 1000000000);
@@ -233,7 +233,7 @@ const Cta = ({
             <Tabs 
             defaultActiveKey="OverView"
             id="fill-tab-example">
-              <Tab eventKey={"OverView"} title={"Price overview"} tabClassName={"tabTitle"}>
+              <Tab eventKey={"OverView"} title={"Line chart"} tabClassName={"tabTitle"}>
                 <Row>
                   <Col>
                     <Row>
@@ -244,16 +244,8 @@ const Cta = ({
                   </Col>
                 </Row>
               </Tab>
-              <Tab eventKey={"Index"} title={"Cryptocompare Index"}>
-                <Row>
-                  <Col>
-                    <p>
-                    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                    </p>
-                  </Col>
-                </Row>
-              </Tab>
-              <Tab eventKey={"Volume"} title={"Exchange volume"}>
+            
+              <Tab eventKey={"Volume"} title={"Bars chart"}>
                 <Row >
                   <Col id='barChartCol'>
                   <BarChart data={volumeData} width={2500} height={200} />
