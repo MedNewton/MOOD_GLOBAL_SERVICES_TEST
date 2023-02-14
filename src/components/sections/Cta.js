@@ -10,6 +10,10 @@ import Col from 'react-bootstrap/Col';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ScrollableBarChart from './partials/barsChart';
+import BarChart from './partials/enhancedBarsChart';
+
+
 
 const propTypes = {
   ...SectionProps.types,
@@ -36,6 +40,11 @@ const Cta = ({
   const refreshDelay = 300000;
   const [GEXData, setGEXData] = useState();
   const [currentGEXData, setCurrentGEXData] = useState({ currentPrice: 0, currentMktCap: 0, volume24Hrs: 0, open24Hrs: 0, low24Hrs: 0, high24Hrs: 0, changePCT24Hrs: 0 });
+  const [volumeData, setVolumeData] = useState([]);
+
+
+
+  
 
   async function getCurrentGEXData(){
     const options = {
@@ -55,12 +64,13 @@ const Cta = ({
       console.error(error);
     });
   }
+  
 
 
   async function getGEXData(){
     const options = {
       method: 'GET',
-      url: 'https://min-api.cryptocompare.com/data/v2/histoday?fsym=ETH&tsym=USD&limit=100',
+      url: 'https://min-api.cryptocompare.com/data/exchange/histoday?tsym=USD&limit=42',
       headers: {
         'authorization': 'Apikey 5144d8cdffd91d36d321f9cd28f5679f7372cb1615b4d8ac8a7b7dbf0525f322',
       }
@@ -69,11 +79,31 @@ const Cta = ({
 
     await axios.request(options).then(function (response) {
       //console.log(response.data);
-      setGEXData(response.data.Data.Data);
+      let apiData = response.data.Data;
+      setGEXData(apiData);
+      Object.values(apiData).forEach((element) => {
 
+        // Formatting the date
+        let timeStamp = element.time;
+        let rawDate = new Date(timeStamp * 1000);
+        let elementDate = rawDate.getDate() + '/0' + (rawDate.getMonth() + 1);
+        console.log(elementDate)
+        // Rounding the volume
+        let rawVolume = element.volume;
+        let elementVolume = Math.round(rawVolume / 1000000000);
+
+        let dataElement = {
+          x: elementDate, y: elementVolume
+        }
+
+        setVolumeData(volumeData => [...volumeData, dataElement]);
+        
+      })
+      
     }).catch(function (error) {
       console.error(error);
     });
+    
   }
 
 
@@ -202,7 +232,7 @@ const Cta = ({
             <Tabs 
             defaultActiveKey="OverView"
             id="fill-tab-example">
-              <Tab eventKey={"OverView"} title={"OverView"} tabClassName={"tabTitle"}>
+              <Tab eventKey={"OverView"} title={"Overview"} tabClassName={"tabTitle"}>
                 <Row>
                   <Col>
                     <p>
@@ -220,12 +250,10 @@ const Cta = ({
                   </Col>
                 </Row>
               </Tab>
-              <Tab eventKey={"Volume"} title={"Volume"}>
-                <Row>
-                  <Col>
-                    <p>
-                    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                    </p>
+              <Tab eventKey={"Volume"} title={"Exchange volume"}>
+                <Row >
+                  <Col id='barChartCol'>
+                  <BarChart data={volumeData} width={2500} height={200} />
                   </Col>
                 </Row>
               </Tab>
