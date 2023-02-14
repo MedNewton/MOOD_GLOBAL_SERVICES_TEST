@@ -7,7 +7,7 @@ const Tooltip = ({ x, y, data }) => {
     console.log(data.x);
     return (
       <div style={{ position: "absolute", left: x, top: y }}>
-          <div style={{ backgroundColor: "rgba(0,0,0,0.7)", color: "#fff", padding: "10px" }}>
+          <div style={{ backgroundColor: "#fff", color: "#030303", padding: "10px", fontSize: "15px", border: "solid 1px #030303", borderRadius: "10px" }}>
               <div>{data.x}</div>
               <div>{data.y + "M"}</div>
           </div>
@@ -101,8 +101,8 @@ const BarChart = ({ data }) => {
             </svg>
             {tooltip && <Tooltip x={tooltip.x} y={tooltip.y} data={tooltip.data} />}
             <div style={{ position: "absolute", top: 0, right: 0 }}>
-                <div style={{ backgroundColor: "rgba(0,0,0,0.7)", color: "#fff", padding: "10px" }}>
-                    Legends
+                <div style={{ backgroundColor: "rgba(0,0,0,0.7)", color: "#fff", padding: "10px", fontSize: "12px" }}>
+                    Volume in M$
                 </div>
             </div>
         </div>
